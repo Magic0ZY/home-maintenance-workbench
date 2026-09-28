@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>家庭维护台 · 我做了个 AI 管家，管全家那些没人愿意记的事</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#eef3f4;--card:#fff;--text:#132a30;--sub:#63808a;--line:#dde8ea;
+  --brand:#0f766e;--brand2:#14b8a6;--soft:#e7f4f1;--softline:#bfe3dc;
+  --amber:#b06a06;--amberbg:#fdf3e0;--red:#b91c1c;--redbg:#fdeceb;
+  --sh:0 1px 2px rgba(16,40,48,.05),0 10px 28px rgba(16,40,48,.07);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 60px}
+
+/* Hero */
+.hero{background:linear-gradient(150deg,#0f766e,#0b5d57 55%,#0a4f4a);color:#fff;padding:46px 22px 40px;text-align:center;margin-bottom:-26px}
+.hero .kicker{font-size:13px;letter-spacing:.18em;opacity:.75;margin-bottom:14px}
+.hero h1{font-size:27px;line-height:1.4;margin:0 0 14px;font-weight:700;letter-spacing:.2px}
+.hero p{font-size:15px;opacity:.9;margin:0 auto;max-width:520px;line-height:1.85}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+.chip{font-size:12.5px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 13px}
+
+/* 卡片与分节 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:22px 20px;margin-bottom:18px}
+.sec{margin:38px 0 16px;display:flex;align-items:center;gap:12px}
+.sec .no{flex:0 0 auto;width:34px;height:34px;border-radius:11px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.sec h2{font-size:20px;margin:0;font-weight:700;letter-spacing:.2px}
+.sec .tag{margin-left:auto;font-size:12.5px;color:var(--sub)}
+.lead{font-size:15.5px;color:var(--sub);margin:0 0 16px}
+
+/* 痛点 */
+.pains{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pain{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 14px}
+.pain .ic{font-size:20px;line-height:1;margin-bottom:8px}
+.pain b{display:block;font-size:15px;margin-bottom:5px}
+.pain span{font-size:13.5px;color:var(--sub);line-height:1.7}
+@media(max-width:520px){.pains{grid-template-columns:1fr}}
+
+/* 功能块 */
+.feat{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh);padding:20px;margin-bottom:20px}
+.feat h3{font-size:17.5px;margin:0 0 8px;font-weight:700}
+.feat h3 .idx{color:var(--brand);margin-right:6px;font-variant-numeric:tabular-nums}
+.feat p{margin:0 0 12px;font-size:15px;line-height:1.85}
+.feat ul{margin:0 0 14px;padding-left:20px;font-size:15px;line-height:1.9;color:#2c454c}
+.feat li{margin-bottom:3px}
+.shot{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#e9eff1;box-shadow:0 6px 20px rgba(16,40,48,.08)}
+.shot img{width:100%;height:auto}
+.cap{font-size:12.5px;color:var(--sub);text-align:center;margin-top:9px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.two{grid-template-columns:1fr}}
+
+/* 提示条 */
+.note{background:var(--soft);border:1px solid var(--softline);border-radius:12px;padding:12px 14px;font-size:14px;color:#155e57;line-height:1.8;margin:0 0 14px}
+.note b{color:#0f766e}
+
+/* 原则 */
+.prin{display:grid;gap:12px}
+.prin .it{background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand2);border-radius:12px;padding:15px 16px}
+.prin .it b{display:block;font-size:15.5px;margin-bottom:6px}
+.prin .it span{font-size:14.5px;color:var(--sub);line-height:1.8}
+
+/* 局限 */
+.limits{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 18px}
+.limits .l{display:flex;gap:10px;padding:13px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.8}
+.limits .l:first-child{border-top:none}
+.limits .l i{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-top:11px}
+
+/* 征集 */
+.ask{background:linear-gradient(150deg,#0f766e,#0b5d57);color:#fff;border-radius:18px;padding:24px 20px;box-shadow:var(--sh)}
+.ask h2{font-size:20px;margin:0 0 10px;font-weight:700}
+.ask p{margin:0 0 16px;font-size:14.5px;opacity:.9;line-height:1.85}
+.ask ol{margin:0;padding-left:22px;font-size:15px;line-height:2}
+.ask li{margin-bottom:6px}
+.ask .end{margin-top:18px;font-size:14px;opacity:.85;border-top:1px solid rgba(255,255,255,.22);padding-top:14px}
+
+/* 页脚 */
+.foot{text-align:center;font-size:12.5px;color:var(--sub);line-height:1.9;margin-top:26px}
+.foot b{color:#3c5b63}
+hr.sep{border:none;border-top:1px dashed var(--line);margin:34px 0}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kicker">家庭维护台 · 个人项目</div>
+  <h1>我做了个 AI 管家，<br>管全家那些"没人愿意记"的事</h1>
+  <p>滤芯什么时候换、东西什么时候补、钱什么时候交、日子什么时候到——这些事不难，但永远挂在脑子里。现在交给 AI 定时巡查，我只负责看一眼、点一下。</p>
+  <div class="chips">
+    <span class="chip">一个网页</span>
+    <span class="chip">云端数据表</span>
+    <span class="chip">AI 定时任务</span>
+    <span class="chip">家人共用</span>
+    <span class="chip">不用写代码</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec"><span class="no">1</span><h2>它解决什么问题</h2></div>
+  <p class="lead">不是"效率工具"，是"记忆外包"。这四件事的共同点是：<b>必须定期做，但没人愿意记</b>。</p>
+  <div class="pains">
+    <div class="pain"><div class="ic">🧹</div><b>耗材总在过期后才想起来</b><span>滤网、尘袋、电池、清洁剂——等到效果变差才发现早就该换了，而且家里有没有备件也不知道。</span></div>
+    <div class="pain"><div class="ic">💸</div><b>钱花在哪了想不起来</b><span>固定账单总有一笔忘缴；临时开销月月发生，年底一问"今年花了多少"，谁都答不上来。</span></div>
+    <div class="pain"><div class="ic">🎁</div><b>节日前手忙脚乱</b><span>月饼要提前买、团圆饭要订位、生日礼物要提前准备——每年都靠临时想起来。</span></div>
+    <div class="pain"><div class="ic">🧺</div><b>日用品永远在"用完了"才知道</b><span>洗衣液、纸巾、猫砂，用光的那一刻才发现家里没存货。</span></div>
+  </div>
+
+  <div class="sec"><span class="no">2</span><h2>怎么解决的</h2><span class="tag">截图数据为演示用</span></div>
+  <p class="lead">三部分组成：<b>一个网页</b>（手机随时打开）+ <b>一组云端数据表</b>（家人共用同一份）+ <b>一个云端 AI 定时任务</b>（每隔几小时自动巡查、主动干活、把结果写回页面）。</p>
+
+  <div class="feat">
+    <h3><span class="idx">①</span>一屏看完全家：今天要操心的都在这</h3>
+    <p>打开就是"今天"——AI 带回的新结果、急需处理的维护项、临期待缴的费用、快到的日子、日用品提醒。不用翻、不用找。</p>
+    <div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/etdhjcxf2x7rxXY0WqrRnM.png" alt="工作台首页：今天" loading="lazy"></div>
+    <div class="cap">「今天」页：AI 有新结果会置顶提示，下面按轻重缓急排好</div>
+  </div>
+
+  <div class="feat">
+    <h3><span class="idx">②</span>耗材到期自动算，不用记周期</h3>
+    <ul>
+      <li>每项耗材登记<b>周期天数 + 上次维护日期</b>，页面自动算"还剩多少天"，红线黄线一目了然；</li>
+      <li>按设备分组折叠，有急事的设备自动展开；支持批量标记完成、临时延后；</li>
+      <li>登记<b>型号、备件库存、单价</b>，到点前就知道该不该囤货、大概要花多少钱；</li>
+      <li>每次维护自动写一条履历，翻旧账有据可查。</li>
+    </ul>
+    <div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/qOzrqwdMP0Zit9oYxs2Ml5.png" alt="维护页：设备分组与耗材进度" loading="lazy"></div>
+    <div class="cap">按设备分组，进度条显示耗用比例，红色=已逾期</div>
+  </div>
+
+  <div class="feat">
+    <h3><span class="idx">③</span>固定费用按期提醒，账本自动汇总</h3>
+    <ul>
+      <li>采暖、物业、车险、宽带这类账单登记周期，到期前提醒；</li>
+      <li>缴费点一下就滚到下一期，<b>点错了还能撤销</b>；</li>
+      <li>费用日历支持「未来 12 个月 / 本年 / 次年」三种视角，提前备钱有数；</li>
+      <li>临时开销记进账本，按类别汇总，年终一看就知道钱去哪了。</li>
+    </ul>
+    <div class="two">
+      <div><div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/KGFVDg4IqZ5Bh4PTAjXXvG.png" alt="固定费用与日历" loading="lazy"></div><div class="cap">固定费用 + 未来 12 个月日历</div></div>
+      <div><div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/DeEoU08YJmLcEIUi2klyYN.png" alt="家庭账本" loading="lazy"></div><div class="cap">家庭账本：临时开销流水</div></div>
+    </div>
+  </div>
+
+  <div class="feat">
+    <h3><span class="idx">④</span>节日前自动出"准备清单"</h3>
+    <p>给某个日子挂上"提前 N 天要做什么"——中秋前 5 天备月饼、家人生日前 7 天买礼物。到点 AI 自动提醒，办好点"备好了"。</p>
+    <div class="note"><b>还带行程建议</b>：中秋、生日这类日子可以打开"AI 行程推荐"，到点自动生成一份当天安排；<b>偏好不写死在程序里</b>——喜欢参与型玩法、不要游客向打卡、餐厅人均区间这些，都放在一张表里随时可改可停用。</div>
+    <div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/mkiMOAXrNvoJR1DflipLC9.png" alt="节日与生日 + 准备清单" loading="lazy"></div>
+    <div class="cap">日子列表 + 准备清单，显示"距提醒还有几天"</div>
+  </div>
+
+  <div class="feat">
+    <h3><span class="idx">⑤</span>日用品：快用完点一下，采购清单自动带上</h3>
+    <ul>
+      <li>每样东西记囤货数量、预计消耗天数，随手加减；</li>
+      <li>快用完点一下报备，会和耗材缺货一起进采购清单；</li>
+      <li>清单一键复制，直接粘贴到购物 App。</li>
+    </ul>
+    <div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/rE6SghiNRj70SHAzDyAPiB.png" alt="日用品库存" loading="lazy"></div>
+    <div class="cap">报备过的会标黄，囤货数量可随手加减</div>
+  </div>
+
+  <div class="feat">
+    <h3><span class="idx">⑥</span>最省事的一点：随口说一句就落表</h3>
+    <p>页面顶部有个输入框，<b>用大白话说什么都行</b>：</p>
+    <ul>
+      <li>「我买了个洗地机，帮我加上维护项」→ 自动建记录、定周期；</li>
+      <li>「今天买猫粮花了 320」→ 记进账本；</li>
+      <li>「洗衣液快用完了」→ 更新库存并带进采购清单。</li>
+    </ul>
+    <div class="note"><b>它不会乱猜</b>：说的一句话里没有的信息（金额、型号、日期）一律留空，并告诉你"哪些字段待补"，绝不自己编。</div>
+    <div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/VPcNjfiORg6N5aWNEeX4ZO.png" alt="AI 任务与自由指令" loading="lazy"></div>
+    <div class="cap">AI 页面：常用任务按钮 + 自由输入框 + 结果回报</div>
+  </div>
+
+  <div class="feat">
+    <h3><span class="idx">⑦</span>家人共用，但权限可控；数据有三层备份</h3>
+    <ul>
+      <li>进来选一次身份就记住了；可以给家人<b>只读权限</b>（能看不能改）；</li>
+      <li>三层备份：页面一键云端快照、AI 每周自动快照、本地导出 JSON；</li>
+      <li>误删了能从快照回溯——这功能是被"万一被改坏"的担忧逼出来的。</li>
+    </ul>
+    <div class="shot"><img src="https://workbuddy-space-static.codebuddy.work/image/Mn4QFoDuDvQUKaKNlEbqnw.png" alt="我的：成员、偏好、备份" loading="lazy"></div>
+    <div class="cap">「我的」页：成员与偏好、采购清单、费用汇总、备份</div>
+  </div>
+
+  <div class="sec"><span class="no">3</span><h2>三条设计原则</h2></div>
+  <p class="lead">这几点是开工时定下的规矩，也是我觉得比功能本身更值钱的部分。</p>
+  <div class="prin">
+    <div class="it"><b>① 可变的东西放数据里，不写死在流程里</b><span>偏好、准备事项、阈值全部是表里的一行，随时可改可停用。写死在代码或提示词里，改一次就要动一次程序——那是给自己挖坑。</span></div>
+    <div class="it"><b>② 状态落到数据里，不靠 AI 的记忆</b><span>AI 每次执行都是全新会话，它不记得"上周做过这件事"。所以"已生成过""已提醒过"必须写进数据，靠数据判断，而不是指望它记住。</span></div>
+    <div class="it"><b>③ 定时判断交给 AI，明确意图交给界面</b><span>"到点该做什么"必须由定时任务自己判断——因为人不开页面它也得跑；"我现在就想要这个"则点个按钮立刻执行。两者混在一起，要么漏，要么错。</span></div>
+  </div>
+
+  <div class="sec"><span class="no">4</span><h2>已知的局限</h2></div>
+  <p class="lead">说清楚边界，比吹功能更有用——这几条都是真踩过的。</p>
+  <div class="limits">
+    <div class="l"><i></i><div>AI 偶尔会"凑整"时间（比如把完成时间写成整点），所以页面加了时间校验，异常时间会标注出来。</div></div>
+    <div class="l"><i></i><div>云端定时任务适合"每天/按间隔"跑，周期很长的任务（每月、每年）还是靠本机开机时执行。</div></div>
+    <div class="l"><i></i><div>自由指令是异步的，最长要等一个巡检周期（几小时）才有结果；急事直接对 AI 说更快。</div></div>
+    <div class="l"><i></i><div>没有接入厂商 App，滤芯寿命这类数据还需要人看一眼再回报给 AI。</div></div>
+    <div class="l"><i></i><div>它不负责"做家务"，只负责"记得住、提醒到、算得清"。</div></div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="ask">
+    <h2>想听听你的建议</h2>
+    <p>这东西现在够自己用，但我想知道别人的家里缺什么。下面几个问题，评论区随便挑一个答一句就行：</p>
+    <ol>
+      <li>你家里有没有那种"必须定期做、但总忘"的事？分别是哪些？</li>
+      <li>如果只能加一个功能，你选哪个：耗材预警 / 账单管理 / 节日准备 / 物品库存 / 开销记账？</li>
+      <li>"随口说一句就落表"这种交互，你觉得在什么场景下最有用？</li>
+      <li>家人共用这样的工具，你最担心什么？（隐私？误操作？没人愿意填？）</li>
+      <li>如果它每天推一条摘要给你，你希望推什么？</li>
+      <li>你愿意为它做多少初始录入？超过多少就不想用了？</li>
+      <li>还有什么"家庭琐事"是你觉得最反人性、最想交给 AI 的？</li>
+    </ol>
+    <div class="end">最想听的是第一条和最后一条——你们家的真实场景，比我自己想的功能清单有用得多。</div>
+  </div>
+
+  <div class="foot">
+    <p><b>关于截图</b>：页面里显示的设备、金额、日期均为演示用的虚构数据，不是真实记录。</p>
+    <p>搭建方式：用一个 AI 助手（WorkBuddy）配合在线数据表一步步做出来的，没有写代码。</p>
+  </div>
+
+</div>
+</body>
+</html>

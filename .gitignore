@@ -1,0 +1,49 @@
+# ---- 真实数据（不要提交） ----
+maintenance_backup.json
+*.backup.json
+数据快照*.json
+snapshots/
+
+# ---- 工作记录 / 自动化配置 ----
+.workbuddy/
+.cudshare/
+page-backups/
+
+# ---- 演示环境的中间版本（已被 demo5.html + mock4.js 取代） ----
+demo/base.html
+demo/measure.html
+demo/demo.html
+demo/demo2.html
+demo/demo3.html
+demo/demo4.html
+demo/mock.js
+demo/mock2.js
+demo/mock3.js
+demo/mytest.html
+
+# ---- 操作系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 编辑器 / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- Python（辅助脚本） ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---- Node（本项目不使用，但避免误提交） ----
+node_modules/
+package-lock.json
+
+# ---- 日志与临时文件 ----
+*.log
+*.tmp
+/tmp/
