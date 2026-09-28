@@ -1,18 +1,23 @@
 /* 本地演示用：模拟平台数据 SDK，数据全部为虚构示例，不含任何真实信息 */
 (function () {
   var DB = {
-    MAINT: 'demoTableMaint01',
-    LOG: 'demoTableLog002',
-    FEE: 'demoTableFee003',
-    FES: 'demoTableFes004',
-    DLY: 'demoTableDly005',
-    TSK: 'demoTableTsk006',
-    REG: 'demoTableReg007',
-    LEDGER: 'demoTableLedger8',
-    MEMBER: 'demoTableMemb09',
-    PREF: 'demoTablePref10',
-    PREP: 'demoTablePrep11',
-    SNAP: 'demoTableSnap12'
+    MAINT: 'YOUR_MAINT_DB_ID',
+    LOG: 'YOUR_LOG_DB_ID',
+    FEE: 'YOUR_FEE_DB_ID',
+    FES: 'YOUR_FES_DB_ID',
+    DLY: 'YOUR_DLY_DB_ID',
+    TSK: 'YOUR_TSK_DB_ID',
+    REG: 'YOUR_REG_DB_ID',
+    LEDGER: 'YOUR_LEDGER_DB_ID',
+    MEMBER: 'YOUR_MEMBER_DB_ID',
+    PREF: 'YOUR_PREF_DB_ID',
+    PREP: 'YOUR_PREP_DB_ID',
+    SNAP: 'YOUR_SNAP_DB_ID',
+    LOC: 'YOUR_LOC_DB_ID',
+    PET: 'YOUR_PET_DB_ID',
+    PETCARE: 'YOUR_PETCARE_DB_ID',
+    ITEM: 'YOUR_ITEM_DB_ID',
+    DEV: 'YOUR_DEV_DB_ID'
   };
   var today = new Date();
   function d(off) { var x = new Date(today.getTime() + off * 86400000); return x.getFullYear() + '-' + ('0' + (x.getMonth() + 1)).slice(-2) + '-' + ('0' + x.getDate()).slice(-2); }
@@ -99,35 +104,35 @@
   SCHEMA[DB.DLY] = [{ id: 'z1', name: '名称', type: 'text' }, { id: 'z2', name: '状态', type: 'select', config: { options: opt(['充足', '快用完', '已用完']) } }];
 
 
-  DATA['demoTableLoc016'] = [
+  DATA['YOUR_LOC_DB_ID'] = [
     { _id: 'L1', '名称': '客厅柜子A', '位置编码': 'L-C-A', '所属区域': '客厅', '说明': '护肤品、药品' },
     { _id: 'L3', '名称': '药箱', '位置编码': 'L-C-A-BOX', '所属区域': '客厅', '上级位置': '客厅柜子A', '说明': '常备药' },
     { _id: 'L2', '名称': '卧室抽屉', '位置编码': 'B-D-1', '所属区域': '卧室', '说明': '常用彩妆' }
   ];
-  DATA['demoTablePet0013'] = [
+  DATA['YOUR_PET_DB_ID'] = [
     { _id: 'P1', '名字': '示例宠物', '类型': '猫', '品种': '中华田园猫', '生日': '2021-09-08', '体重kg': 4.6, '绝育': '已绝育', '备注': '怕生，洗澡要有人按着' }
   ];
-  DATA['demoPetCare00014'] = [
+  DATA['YOUR_PETCARE_DB_ID'] = [
     { _id: 'C1', '宠物': '示例宠物', '项目': '洗澡', '周期天数': 30, '上次日期': d(-25), '负责人': '我', '备注': '' },
     { _id: 'C2', '宠物': '示例宠物', '项目': '体外驱虫', '周期天数': 30, '上次日期': d(-41), '负责人': '我', '备注': '滴剂' },
     { _id: 'C3', '宠物': '示例宠物', '项目': '疫苗', '周期天数': 365, '上次日期': d(-200), '负责人': '我', '备注': '' }
   ];
-  DATA['demoTableItem15'] = [
+  DATA['YOUR_ITEM_DB_ID'] = [
     { _id: 'I1', '名称': '面霜', '品类': '护肤品', '位置': '客厅柜子A', '入库日期': d(-60), '保质期至': d(20), '状态': '在用', '数量': 1, '备注': '' },
     { _id: 'I2', '名称': '眼药水', '品类': '药品', '位置': '客厅柜子A', '入库日期': d(-200), '保质期至': d(-3), '状态': '在用', '数量': 1, '备注': '' },
     { _id: 'I3', '名称': '口红', '品类': '彩妆', '位置': '卧室抽屉', '入库日期': d(-30), '保质期至': d(200), '状态': '未开封', '数量': 2, '备注': '' }
   ];
-  DATA['demoTableDly005'] = DATA['demoTableDly005'].concat([
+  DATA['YOUR_DLY_DB_ID'] = DATA['YOUR_DLY_DB_ID'].concat([
     { _id: 'd5', '名称': '猫粮', '规格': '2kg', '囤货数量': 1, '存放位置': '客厅', '经验消耗天数': 45, '上次报备日期': iso(-20), '状态': '快用完', '宠物': '示例宠物', '备注': '' },
     { _id: 'd6', '名称': '猫砂', '规格': '10kg', '囤货数量': 3, '存放位置': '客厅', '经验消耗天数': 30, '上次报备日期': iso(-9), '状态': '充足', '宠物': '示例宠物', '备注': '' }
   ]);
-  DATA['demoTableMaint01'] = DATA['demoTableMaint01'].concat([
+  DATA['YOUR_MAINT_DB_ID'] = DATA['YOUR_MAINT_DB_ID'].concat([
     { _id: 'm9', '维护项': '饮水机滤芯', '所属设备': '饮水机', '房间': '客厅', '类别': '宠物设备', '维护动作': '更换耗材', '周期天数': 30, '上次维护日期': iso(-41), '耗材型号': '专用滤芯', '备件库存': 0, '耗材单价': 59, '归属模块': '宠物', '宠物': '示例宠物', '备注': '' },
     { _id: 'm10', '维护项': '除臭块', '所属设备': '猫厕所', '房间': '客卫', '类别': '宠物设备', '维护动作': '更换耗材', '周期天数': 45, '上次维护日期': iso(-40), '耗材型号': '除臭块', '备件库存': 1, '耗材单价': 35, '归属模块': '宠物', '宠物': '示例宠物', '备注': '' }
   ]);
 
 
-  DATA['demoTableDev017'] = [
+  DATA['YOUR_DEV_DB_ID'] = [
     { _id: 'DV1', '设备名': '扫地机器人', '房间': '客厅', '类别': '清洁设备', '型号': '', '备注': '' },
     { _id: 'DV2', '设备名': '新风机', '房间': '客厅', '类别': '米家电器', '型号': '', '备注': '' }
   ];
